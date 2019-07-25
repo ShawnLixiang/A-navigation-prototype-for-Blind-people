@@ -9,6 +9,10 @@ const int motorPin[] = {9, 10, 11};
 const int trigPin[]  = {2, 4, 6};
 const int echoPin[]  = {3, 5, 7};
 //============================================================
+const uint8_t threshCount = 7;
+int intensityMap[threshCount] = {0, 30, 60, 90, 130, 190, 255};
+int distanceThresh[threshCount] = {50, 100, 150, 200, 250, 300, 350};
+//============================================================
 int distance1 = 0;
 int distance2 = 0;
 int distanceDifference = 0;
@@ -44,6 +48,5 @@ void filterReading(int j)
   {
     distance1 = proximityRead(trigPin[j], echoPin[j]);
     distance2 = proximityRead(trigPin[j], echoPin[j]);
-    
   } 
 }
