@@ -1,19 +1,17 @@
 
 void someSeriesOfDecisions()
 {
-  if (abs(distanceDifference) < 100)
+  //  if (abs(distanceDifference) < 100)
+  //  {
+  for (int i = 0; i < threshCount; ++i)
   {
-    uint8_t noteIndex = 0;
-    for (int i = 0; i < threshCount; ++i)
+    if (distance1 < distanceThresh[i])
     {
-      if (distance1 < distanceThresh[i])
-      {
-        noteIndex = (threshCount - 1) - i;
-        break;
-      }
+      noteIndex = (threshCount - 1) - i;
+      break;
     }
-    sound(noteIndex);
   }
+  //  }
 }
 
 int proximityRead(int proximityTrigPin, int proximityEchoPin)
@@ -43,11 +41,16 @@ void pinInit()
 
 void sound(uint8_t note_index)
 {
-  while ((millis() - lastReadMillis) < sensorUpdateMillis)
+
+  if ((millis() - toneLastRepeatMillis) > toneRepeatMillis)
   {
-    digitalWrite(SPEAKER, HIGH);
-    delayMicroseconds(bassTab[note_index]);
-    digitalWrite(SPEAKER, LOW);
-    delayMicroseconds(bassTab[note_index]);
+    toneLastRepeatMillis = millis();
+    while ((millis() - toneLastRepeatMillis) < toneLengthMillis)
+    {
+      digitalWrite(SPEAKER, HIGH);
+      delayMicroseconds(bassTab[note_index]);
+      digitalWrite(SPEAKER, LOW);
+      delayMicroseconds(bassTab[note_index]);
+    }
   }
 }
