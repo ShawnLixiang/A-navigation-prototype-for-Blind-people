@@ -78,7 +78,7 @@ int proximityRead(int proximityTrigPin, int proximityEchoPin)
   duration = pulseIn(proximityEchoPin, HIGH); // Reads the echoPin, returns the sound wave travel time in microseconds
 
   distance = duration / (2 * 29); // Calculating the distance 1/29 ~= 0.034
-
+  lastReadMillis = millis();
   return distance;
 }
 
@@ -89,8 +89,8 @@ void pinInit()
 }
 
 void sound(uint8_t note_index)
-{
-  for (int i = 0; i < 100; i++)
+{  
+  while ((millis() - lastReadMillis) < sensorUpdateMillis)
   {
     digitalWrite(SPEAKER, HIGH);
     delayMicroseconds(bassTab[note_index]);

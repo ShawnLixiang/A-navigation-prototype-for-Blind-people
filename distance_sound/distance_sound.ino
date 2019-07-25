@@ -6,6 +6,8 @@
    Who Made it: YOUR NAME, DATE
 */
 const int SPEAKER = 3;
+const int sensorUpdateMillis = 100;
+unsigned long lastReadMillis = 0;
 //============================================================
 int bassTab[] = {1911, 1702, 1516, 1431, 1275, 1136, 1012}; //bass 1~7
 //============================================================
